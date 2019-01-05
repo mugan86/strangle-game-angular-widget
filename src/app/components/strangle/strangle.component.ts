@@ -12,9 +12,13 @@ export class StrangleComponent implements OnInit {
   momentWord: string;
   inputLetters: string[] = [];
   letters: Letter[] = [];
+
   constructor() { }
 
   ngOnInit() {
+    // https://codepen.io/attilahajzer/pen/kydqJ
+    const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
     const word = 'Una palabra mas';
     for (let i = 0; i < word.length; i++) {
       const character = word[i].toLowerCase();
