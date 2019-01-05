@@ -5,10 +5,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { KeyboardComponent } from './components/keyboard/keyboard.component';
 
 @NgModule({
   declarations: [
-    AppComponent, StrangleComponent, CountDownTimerComponent, ChronometerComponent
+    AppComponent, StrangleComponent, CountDownTimerComponent, ChronometerComponent, KeyboardComponent
   ],
   imports: [
     BrowserModule
