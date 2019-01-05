@@ -34,7 +34,7 @@ export class StrangleComponent implements OnInit {
     }
     // console.log(String(hideWord));
     this.getHideWord();
-    console.log('Initial word chars');
+    /*console.log('Initial word chars');
     this.findAppearances('u');
     this.findAppearances('p');
     this.findAppearances('e');
@@ -54,8 +54,7 @@ export class StrangleComponent implements OnInit {
     this.findAppearances('b');
     console.log('Entry letters', this.inputLetters);
     console.log('Moment correct words', this.letters);
-    this.getHideWord();
-    console.log(this.finishGame());
+    this.getHideWord();*/
   }
   findAppearances(inputChar: string) {
     this.inputLetters.push(inputChar);
@@ -66,7 +65,6 @@ export class StrangleComponent implements OnInit {
       }
       console.log(data);
     });
-    const checkAllTake = this.letters.filter(letter => letter.secret !== ' ');
   }
 
   getHideWord() {
@@ -82,6 +80,13 @@ export class StrangleComponent implements OnInit {
     const valuesCheck = this.letters.filter((letter: Letter) => letter.secret === '_');
     console.log(valuesCheck);
     return (valuesCheck.length === 0) ? true : false;
+  }
+
+  keyInput(key: string) {
+    console.log(key.toLowerCase());
+    this.findAppearances(key.toLowerCase());
+    this.getHideWord();
+    console.log(this.finishGame());
   }
 
 }
