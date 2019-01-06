@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 interface Letter {
   visible: string;
   secret: string;
@@ -9,19 +9,21 @@ interface Letter {
   styleUrls: ['./strangle.component.css']
 })
 export class StrangleComponent implements OnInit {
+  wordToFind: string;
   momentWord: string;
   inputLetters: string[] = [];
   letters: Letter[] = [];
-
+  finish = false;
+  @Input()
+  attemps: number;
   constructor() { }
 
   ngOnInit() {
     // https://codepen.io/attilahajzer/pen/kydqJ
-    const alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
-    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-    const word = 'Una palabra mas';
-    for (let i = 0; i < word.length; i++) {
-      const character = word[i].toLowerCase();
+
+    this.wordToFind = 'Una palabra mas';
+    for (let i = 0; i < this.wordToFind.length; i++) {
+      const character = this.wordToFind[i].toLowerCase();
       console.log(character);
       const letter: Letter = { visible: '', secret: ''};
       if (character === ' ') {
@@ -34,37 +36,21 @@ export class StrangleComponent implements OnInit {
     }
     // console.log(String(hideWord));
     this.getHideWord();
-    /*console.log('Initial word chars');
-    this.findAppearances('u');
-    this.findAppearances('p');
-    this.findAppearances('e');
-    this.findAppearances('a');
-    this.findAppearances('r');
-
-    console.log('Entry letters', this.inputLetters);
-    console.log('Moment correct words', this.letters);
-    this.getHideWord();
-    console.log(this.finishGame());
-    this.findAppearances('l');
-    this.findAppearances('i');
-    this.findAppearances('n');
-    this.findAppearances('c');
-    this.findAppearances('m');
-    this.findAppearances('s');
-    this.findAppearances('b');
-    console.log('Entry letters', this.inputLetters);
-    console.log('Moment correct words', this.letters);
-    this.getHideWord();*/
   }
   findAppearances(inputChar: string) {
     this.inputLetters.push(inputChar);
+    let ok = false;
     this.letters.map( (data: Letter) => {
       if (data.secret === '_' && data.visible === inputChar) {
         console.log('OK!');
         data.secret = inputChar;
+        ok = !ok;
       }
       console.log(data);
     });
+    if ( !ok ) {
+      this.attemps--;
+    }
   }
 
   getHideWord() {
@@ -87,6 +73,15 @@ export class StrangleComponent implements OnInit {
     this.findAppearances(key.toLowerCase());
     this.getHideWord();
     console.log(this.finishGame());
+    if (this.finishGame() || this.attemps === 0) {
+      this.finish = true;
+      if (this.attemps === 0) {
+        // Save
+        console.log('Word to find', this.wordToFind);
+      } else {
+        console.log('Congratulations!!');
+      }
+    }
   }
 
 }

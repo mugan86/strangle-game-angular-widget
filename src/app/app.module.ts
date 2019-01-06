@@ -6,10 +6,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { KeyboardComponent } from './components/keyboard/keyboard.component';
+import { StatusBarComponent } from './components/status-bar/status-bar.component';
 
 @NgModule({
   declarations: [
-    AppComponent, StrangleComponent, CountDownTimerComponent, ChronometerComponent, KeyboardComponent
+    AppComponent, StrangleComponent, CountDownTimerComponent, ChronometerComponent, KeyboardComponent, StatusBarComponent
   ],
   imports: [
     BrowserModule

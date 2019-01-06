@@ -1,5 +1,12 @@
 <p>
-  strangle works!
+  Attemps: {{ attemps }}
+</p>
+<p>
   {{ momentWord }}
 </p>
-<app-keyboard (selectKey)="keyInput($event)"></app-keyboard>
+<app-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></app-keyboard>
+<h1 *ngIf="finish">
+  The game is finished. 
+  <span *ngIf="attemps == 0">You lost. Secret word is "{{ wordToFind }}"</span>
+  <span *ngIf="attemps > 0">You Win!!. Secret word is "{{ wordToFind }}"</span>
+</h1>
