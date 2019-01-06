@@ -1,9 +1,5 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-strangle [attemps]="gameConfig.attemps"></app-strangle>
-<p>
-  <app-count-down-timer [time]="gameConfig.playTime"></app-count-down-timer>
-  <app-chronometer [time]="-1"></app-chronometer>
-</p>
+<strangle-root [attemps]="gameConfig.attemps" [playTime]="gameConfig.playTime"></strangle-root>
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!

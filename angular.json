@@ -129,6 +129,41 @@
           }
         }
       }
+    },
+    "strangle": {
+      "root": "projects/strangle",
+      "sourceRoot": "projects/strangle/src",
+      "projectType": "library",
+      "prefix": "strangle",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/strangle/tsconfig.lib.json",
+            "project": "projects/strangle/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/strangle/src/test.ts",
+            "tsConfig": "projects/strangle/tsconfig.spec.json",
+            "karmaConfig": "projects/strangle/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/strangle/tsconfig.lib.json",
+              "projects/strangle/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "strangleDemoApp"

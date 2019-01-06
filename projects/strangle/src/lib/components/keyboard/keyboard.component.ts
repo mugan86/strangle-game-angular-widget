@@ -3,7 +3,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { createKeyBoardKeys } from './keyboard.constants';
 
 @Component({
-  selector: 'app-keyboard',
+  selector: 'strangle-keyboard',
   templateUrl: './keyboard.component.html',
   styleUrls: ['./keyboard.component.css']
 })

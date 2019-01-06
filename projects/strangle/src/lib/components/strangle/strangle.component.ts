@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { StrangleService } from '../../services/strangle.service';
 interface Letter {
   visible: string;
   secret: string;
 }
 @Component({
-  selector: 'app-strangle',
+  selector: 'strangle-root',
   templateUrl: './strangle.component.html',
   styleUrls: ['./strangle.component.css']
 })
@@ -16,7 +17,12 @@ export class StrangleComponent implements OnInit {
   finish = false;
   @Input()
   attemps: number;
-  constructor() { }
+  @Input()
+  playTime: number;
+  constructor(gameService: StrangleService) {
+    gameService.setPlayTime(this.playTime);
+    gameService.setAttemps(this.attemps);
+  }
 
   ngOnInit() {
     // https://codepen.io/attilahajzer/pen/kydqJ

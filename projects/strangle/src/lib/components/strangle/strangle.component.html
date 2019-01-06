@@ -1,10 +1,14 @@
 <p>
+  <strangle-count-down-timer [time]="playTime" (selectKey)="restart($event, finish)"></strangle-count-down-timer>
+  <strangle-chronometer [time]="-1"></strangle-chronometer>
+</p>
+<p>
   Attemps: {{ attemps }}
 </p>
 <p>
   {{ momentWord }}
 </p>
-<app-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></app-keyboard>
+<strangle-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></strangle-keyboard>
 <h1 *ngIf="finish">
   The game is finished. 
   <span *ngIf="attemps == 0">You lost. Secret word is "{{ wordToFind }}"</span>
