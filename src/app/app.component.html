@@ -1,7 +1,7 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<app-strangle [attemps]="2"></app-strangle>
+<app-strangle [attemps]="gameConfig.attemps"></app-strangle>
 <p>
-  <app-count-down-timer [time]="10"></app-count-down-timer>
+  <app-count-down-timer [time]="gameConfig.playTime"></app-count-down-timer>
   <app-chronometer [time]="10"></app-chronometer>
 </p>
 <div style="text-align:center">

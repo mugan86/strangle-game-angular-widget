@@ -1,3 +1,4 @@
+import { GameConfig } from './interfaces/game-config.interface';
 import { Component } from '@angular/core';
 
 @Component({
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'strangleDemoApp';
+  gameConfig: GameConfig;
+  constructor() {
+    this.gameConfig = {
+      attemps : 6,
+      playTime : 10
+    };
+  }
 }

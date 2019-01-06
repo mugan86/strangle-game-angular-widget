@@ -14,6 +14,9 @@ export class ChronometerComponent implements OnInit {
 
   ngOnInit() {
     // With clock format
+    if (this.time === -1 ) {
+      this.time = 3600;
+    }
     const counter = new Counter(this.time, true);
     const count$ = counter.start().subscribe(
       data => {
