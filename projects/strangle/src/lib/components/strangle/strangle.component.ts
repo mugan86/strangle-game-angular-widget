@@ -1,16 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Letter } from './../../interfaces/letter.interface';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StrangleService } from '../../services/strangle.service';
 import { ChronometerService } from '../../services/chronometer.service';
-interface Letter {
-  visible: string;
-  secret: string;
-}
+
 @Component({
   selector: 'strangle-root',
   templateUrl: './strangle.component.html',
   styleUrls: ['./strangle.component.css']
 })
-export class StrangleComponent implements OnInit {
+export class StrangleComponent implements OnInit, OnDestroy {
   wordToFind: string;
   momentWord: string;
   inputLetters: string[] = [];
@@ -20,32 +18,25 @@ export class StrangleComponent implements OnInit {
   attemps: number;
   @Input()
   playTime: number;
-  constructor(gameService: StrangleService, private chronometerService: ChronometerService) {
-    gameService.setPlayTime(this.playTime);
-    gameService.setAttemps(this.attemps);
-  }
+  constructor(private gameService: StrangleService, private chronometerService: ChronometerService) { }
 
   ngOnInit() {
-    // https://codepen.io/attilahajzer/pen/kydqJ
 
-    this.wordToFind = 'Una palabra mas';
-    for (let i = 0; i < this.wordToFind.length; i++) {
-      const character = this.wordToFind[i].toLowerCase();
-      console.log(character);
-      const letter: Letter = { visible: '', secret: ''};
-      if (character === ' ') {
-        letter.secret = '.....';
-      } else {
-        letter.secret = '_';
-      }
-      letter.visible = character;
-      this.letters.push(letter);
-    }
-    // console.log(String(hideWord));
+    // Listen to changes in attemps
+    this.gameService.stringVar$.subscribe(data => {
+      this.gameService.setAttemps(+data);
+      this.attemps = this.gameService.getAttemps();
+    });
+
+    this.chronometerService.initializeService(1000);
+    this.gameService.setAttemps(this.attemps);
+
+    this.letters = this.gameService.createStartGameWord('anartz mugika ledo');
     this.getHideWord();
   }
   findAppearances(inputChar: string) {
     this.inputLetters.push(inputChar);
+    let attemps = this.gameService.getAttemps();
     let ok = false;
     this.letters.map( (data: Letter) => {
       if (data.secret === '_' && data.visible === inputChar) {
@@ -56,7 +47,8 @@ export class StrangleComponent implements OnInit {
       console.log(data);
     });
     if ( !ok ) {
-      this.attemps--;
+      attemps--;
+      this.gameService.updateStringSubject(String(attemps));
     }
   }
 
@@ -76,6 +68,8 @@ export class StrangleComponent implements OnInit {
   }
 
   keyInput(key: string) {
+    this.chronometerService.stop();
+    this.chronometerService.setChronometer('00:00:00');
     console.log(key.toLowerCase());
     this.findAppearances(key.toLowerCase());
     this.getHideWord();
@@ -88,12 +82,14 @@ export class StrangleComponent implements OnInit {
       } else {
         console.log('Congratulations!!');
       }
-      this.chronometerService.stop();
       this.chronometerService.setChronometer();
     } else {
-      this.chronometerService.stop();
-      this.chronometerService.start(10);
+      this.chronometerService.start();
     }
+  }
+
+  ngOnDestroy() {
+    this.gameService.stringVar.unsubscribe();
   }
 
 }

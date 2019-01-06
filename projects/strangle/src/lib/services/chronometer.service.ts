@@ -9,11 +9,11 @@ export class ChronometerService {
   count$: Subscription;
   chronometer: string;
   counter: Counter;
-  constructor() {
-    this.counter = new Counter(10, true);
-  }
 
-  start(timeLimit: number) {
+  initializeService(timeLimit: number = 3600) {
+    this.counter = new Counter(timeLimit, true);
+  }
+  start() {
     this.count$ = this.counter.start().subscribe(
       data => {
         console.log(data);
@@ -32,8 +32,8 @@ export class ChronometerService {
     return this.chronometer;
   }
 
-  setChronometer() {
-    this.chronometer = 'FINISH';
+  setChronometer(value: string = 'FINISH') {
+    this.chronometer = value;
   }
 
 }

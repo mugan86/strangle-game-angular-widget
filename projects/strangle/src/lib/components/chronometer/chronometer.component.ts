@@ -25,7 +25,7 @@ export class ChronometerComponent implements OnInit {
     if (this.time === -1 ) {
       this.time = 3600;
     }
-    this.chronometerService.start(10);
+    this.chronometerService.start();
     this.chronometer = this.chronometerService.getChronometer();
   }
 
