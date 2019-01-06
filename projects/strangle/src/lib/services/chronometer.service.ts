@@ -32,4 +32,8 @@ export class ChronometerService {
     return this.chronometer;
   }
 
+  setChronometer() {
+    this.chronometer = 'FINISH';
+  }
+
 }

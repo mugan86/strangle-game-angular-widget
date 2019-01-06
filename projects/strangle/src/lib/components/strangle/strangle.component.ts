@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StrangleService } from '../../services/strangle.service';
+import { ChronometerService } from '../../services/chronometer.service';
 interface Letter {
   visible: string;
   secret: string;
@@ -19,7 +20,7 @@ export class StrangleComponent implements OnInit {
   attemps: number;
   @Input()
   playTime: number;
-  constructor(gameService: StrangleService) {
+  constructor(gameService: StrangleService, private chronometerService: ChronometerService) {
     gameService.setPlayTime(this.playTime);
     gameService.setAttemps(this.attemps);
   }
@@ -87,6 +88,11 @@ export class StrangleComponent implements OnInit {
       } else {
         console.log('Congratulations!!');
       }
+      this.chronometerService.stop();
+      this.chronometerService.setChronometer();
+    } else {
+      this.chronometerService.stop();
+      this.chronometerService.start(10);
     }
   }
 
