@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CountDown } from 'mugan86-chronometer';
 
@@ -10,6 +10,22 @@ export class CountdownService {
   count$: Subscription;
   chronometer: string;
   counter: CountDown;
+  // Para compartir información
+  public currentTime = new Subject<string>();
+  public currentTime$ = this.currentTime.asObservable();
+
+  public updateTime(data: string) {
+    this.currentTime.next(data);
+    console.log(data);
+    if ( data === 'FINISH') {
+      this.count$.unsubscribe();
+    }
+    this.chronometer = data;
+    /*if (newStringVar === '0') {
+      this.currentTime.unsubscribe();
+      console.log('unsuscribe');
+    }*/
+  }
 
   initializeService(timeLimit: number = 3600) {
     console.log(timeLimit);
@@ -17,14 +33,17 @@ export class CountdownService {
   }
   restart($event, finish) {
     console.log($event, finish);
+    if (finish) {
+      this.count$.unsubscribe();
+    }
     // With clock format
-    const countDown$ = this.counter.start().subscribe(
+    this.count$ = this.counter.start().subscribe(
       data => {
-        console.log(data);
-        if ( data === 'FINISH') {
-          countDown$.unsubscribe();
+        if (data === 'FINISH') {
+          this.stop();
+        } else {
+          this.updateTime(data);
         }
-        this.chronometer = data;
       }
     );
   }

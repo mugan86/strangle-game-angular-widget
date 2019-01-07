@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CountDown } from 'mugan86-chronometer';
 import { CountdownService } from '../../services/countdown.service';
 
 @Component({

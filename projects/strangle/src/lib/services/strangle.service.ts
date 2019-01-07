@@ -1,6 +1,5 @@
 import { Letter } from './../interfaces/letter.interface';
-import { GameService } from './../../../../../../lib-demo/projects/game/src/lib/game.service';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -31,7 +30,6 @@ export class StrangleService {
   // updateStringSubject('some new string value')
 
   constructor() {
-    this.selectGameImage();
   }
   // ------ How to update the subject ---------
   // Create a method that allows you to update the subject being watched by observable
@@ -71,10 +69,6 @@ export class StrangleService {
 
   getAttemps() {
     return this.attemps;
-  }
-
-  selectGameImage() {
-    this.firstImage = this.url.concat(this.images[this.getAttemps()]);
   }
 
   getGameImage() {

@@ -30,6 +30,17 @@ export class StrangleComponent implements OnInit, OnDestroy {
       this.attemps = this.gameService.getAttemps();
     });
 
+    this.countdownService.currentTime$.subscribe(data => {
+      console.log('In strangle countdown!!!', data);
+      let attemps = this.gameService.getAttemps();
+      if (data === 'FINISH' && attemps > 2) {
+        attemps--;
+        this.gameService.updateStringSubject(String(attemps));
+        this.countdownService.stop();
+        this.countdownService.restart(null, true);
+      }
+    });
+
     this.chronometerService.initializeService(1000);
     this.countdownService.initializeService(this.playTime);
     this.gameService.setAttemps(this.attemps);
@@ -71,7 +82,7 @@ export class StrangleComponent implements OnInit, OnDestroy {
   }
 
   keyInput(key: string) {
-    // this.chronometerService.stop();
+    this.countdownService.stop();
     // this.chronometerService.setChronometer('00:00:00');
     console.log(key.toLowerCase());
     this.findAppearances(key.toLowerCase());
@@ -85,10 +96,9 @@ export class StrangleComponent implements OnInit, OnDestroy {
       } else {
         console.log('Congratulations!!');
       }
-      // this.chronometerService.setChronometer();
-    } else {
-      // this.chronometerService.start();
+      this.countdownService.setChronometer();
     }
+    this.countdownService.restart(null, true);
   }
 
   ngOnDestroy() {
