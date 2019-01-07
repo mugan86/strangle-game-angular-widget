@@ -12,7 +12,7 @@ export class AppComponent {
   constructor() {
     this.gameConfig = {
       attemps : 6,
-      playTime : 10
+      playTime : 15
     };
   }
 }

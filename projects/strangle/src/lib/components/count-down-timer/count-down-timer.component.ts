@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { CountDown } from 'mugan86-chronometer';
+import { CountdownService } from '../../services/countdown.service';
 
 @Component({
   selector: 'strangle-count-down-timer',
@@ -8,26 +9,27 @@ import { CountDown } from 'mugan86-chronometer';
 })
 export class CountDownTimerComponent implements OnInit {
 
-  chronometer = '00:15:00';
+  chronometer = '00:00:15';
   @Input() time: number;
-
+  constructor(private chronometerService: CountdownService) {
+  }
   ngOnInit() {
-    this.restart(null, false);
+    this.chronometerService.initializeService(this.time);
+    this.start();
+  }
+  start() {
+    this.chronometerService.restart(null, false);
+    this.chronometer = this.chronometerService.getChronometer();
   }
 
-  restart($event, finish) {
-    console.log($event, finish);
-    // With clock format
-    const counter = new CountDown(this.time, true);
-    const countDown$ = counter.start().subscribe(
-      data => {
-        console.log(data);
-        this.chronometer = data;
-        if ( data === 'FINISH') {
-          countDown$.unsubscribe();
-        }
+  /*restart($event, finish) {
+    start() {
+      // With clock format
+      if (this.time === -1 ) {
+        this.time = 3600;
       }
-    );
-  }
-
+      this.chronometerService.start();
+      this.chronometer = this.chronometerService.getChronometer();
+    }
+  }*/
 }

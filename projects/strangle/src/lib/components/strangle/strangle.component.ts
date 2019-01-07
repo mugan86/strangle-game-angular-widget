@@ -2,6 +2,7 @@ import { Letter } from './../../interfaces/letter.interface';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StrangleService } from '../../services/strangle.service';
 import { ChronometerService } from '../../services/chronometer.service';
+import { CountdownService } from '../../services/countdown.service';
 
 @Component({
   selector: 'strangle-root',
@@ -18,7 +19,8 @@ export class StrangleComponent implements OnInit, OnDestroy {
   attemps: number;
   @Input()
   playTime: number;
-  constructor(private gameService: StrangleService, private chronometerService: ChronometerService) { }
+  constructor(private gameService: StrangleService, private chronometerService: ChronometerService,
+    private countdownService: CountdownService) { }
 
   ngOnInit() {
 
@@ -29,6 +31,7 @@ export class StrangleComponent implements OnInit, OnDestroy {
     });
 
     this.chronometerService.initializeService(1000);
+    this.countdownService.initializeService(this.playTime);
     this.gameService.setAttemps(this.attemps);
 
     this.letters = this.gameService.createStartGameWord('anartz mugika ledo');
@@ -68,8 +71,8 @@ export class StrangleComponent implements OnInit, OnDestroy {
   }
 
   keyInput(key: string) {
-    this.chronometerService.stop();
-    this.chronometerService.setChronometer('00:00:00');
+    // this.chronometerService.stop();
+    // this.chronometerService.setChronometer('00:00:00');
     console.log(key.toLowerCase());
     this.findAppearances(key.toLowerCase());
     this.getHideWord();
@@ -82,9 +85,9 @@ export class StrangleComponent implements OnInit, OnDestroy {
       } else {
         console.log('Congratulations!!');
       }
-      this.chronometerService.setChronometer();
+      // this.chronometerService.setChronometer();
     } else {
-      this.chronometerService.start();
+      // this.chronometerService.start();
     }
   }
 
