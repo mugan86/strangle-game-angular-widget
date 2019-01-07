@@ -1,6 +1,4 @@
-import { Observable, Subscription } from 'rxjs';
-import { Component, OnInit, Input, ViewEncapsulation } from '@angular/core';
-import { Counter } from 'mugan86-chronometer';
+import { Component, OnInit, Input } from '@angular/core';
 import { ChronometerService } from '../../services/chronometer.service';
 
 /**
@@ -18,6 +16,7 @@ export class ChronometerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.chronometerService.initializeService(1000);
     this.start();
   }
   start() {

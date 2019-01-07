@@ -7,7 +7,6 @@ import { CountDown } from 'mugan86-chronometer';
 })
 export class CountdownService {
 
-  count$: Subscription;
   chronometer: string;
   counter: CountDown;
   // Para compartir información
@@ -17,8 +16,10 @@ export class CountdownService {
   public updateTime(data: string) {
     this.currentTime.next(data);
     console.log(data);
-    if ( data === 'FINISH') {
-      this.count$.unsubscribe();
+    if (data === 'FINISH') {
+      data = '00:00:00';
+      console.log('Inicializar!!!');
+      this.restart();
     }
     this.chronometer = data;
     /*if (newStringVar === '0') {
@@ -31,24 +32,19 @@ export class CountdownService {
     console.log(timeLimit);
     this.counter = new CountDown(timeLimit, true);
   }
-  restart($event, finish) {
-    console.log($event, finish);
-    if (finish) {
-      this.count$.unsubscribe();
-    }
+  restart() {
     // With clock format
-    this.count$ = this.counter.start().subscribe(
+    this.counter.start().subscribe(
       data => {
-        if (data === 'FINISH') {
-          this.stop();
-        } else {
-          this.updateTime(data);
-        }
+        this.updateTime(data);
+        /*if (data === 'FINISH') {
+          this.count$.unsubscribe();
+        }*/
       }
     );
   }
   stop() {
-    this.count$.unsubscribe();
+    this.currentTime.unsubscribe();
   }
 
   getChronometer() {

@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StrangleService {
+  momentWord: string;
+  inputLetters: string[] = [];
+  letters: Letter[] = [];
   attemps = 6;
   playTime: number;
   url = 'https://bitbucket.org/amugika/ahorkadoa/raw/2b3890efce59f021619ff8bc3465ca79f54c6cbe/res/drawable/';
@@ -42,7 +45,7 @@ export class StrangleService {
   }
 
   createStartGameWord(wordToFind: string = 'ahorcado') {
-    const letters: Letter[] = [];
+    this.letters = [];
     for (let i = 0; i < wordToFind.length; i++) {
       const character = wordToFind[i].toLowerCase();
       console.log(character);
@@ -53,9 +56,8 @@ export class StrangleService {
         letter.secret = '_';
       }
       letter.visible = character;
-      letters.push(letter);
+      this.letters.push(letter);
     }
-    return letters;
   }
 
   setAttemps(attemps: number) {
@@ -73,6 +75,39 @@ export class StrangleService {
 
   getGameImage() {
     return this.url.concat(this.images[this.getAttemps()]);
+  }
+  findAppearances(inputChar: string) {
+    this.inputLetters.push(inputChar);
+    let attemps = this.getAttemps();
+    let ok = false;
+    this.letters.map( (data: Letter) => {
+      if (data.secret === '_' && data.visible === inputChar) {
+        console.log('OK!');
+        data.secret = inputChar;
+        ok = !ok;
+      }
+      // console.log(data);
+    });
+    if ( !ok ) {
+      attemps--;
+      this.updateStringSubject(String(attemps));
+    }
+  }
+
+  getHideWord() {
+    this.momentWord = '';
+    this.letters.map((letter: Letter) => {
+      this.momentWord = this.momentWord + (letter.secret) + ' ';
+      // console.log(letter.secret);
+    });
+    // console.log(this.momentWord);
+  }
+
+  /**
+   * Check if user find all secrets words
+   */
+  finishGame(): boolean {
+    return (this.letters.filter((letter: Letter) => letter.secret === '_').length === 0) ? true : false;
   }
 
 }

@@ -7,11 +7,11 @@
   Attemps: {{ attemps }}
 </p>
 <p>
-  {{ momentWord }}
+  {{ getMomentWord() }}
 </p>
 <strangle-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></strangle-keyboard>
 <h1 *ngIf="finish">
   The game is finished. 
-  <span *ngIf="attemps == 0">You lost. Secret word is "{{ wordToFind }}"</span>
-  <span *ngIf="attemps > 0">You Win!!. Secret word is "{{ wordToFind }}"</span>
+  <span *ngIf="attemps == 0">You lost. Secret word is "{{ secretWord }}"</span>
+  <span *ngIf="attemps > 0">You Win!!. Secret word is "{{ secretWord }}"</span>
 </h1>

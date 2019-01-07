@@ -13,11 +13,11 @@ export class CountDownTimerComponent implements OnInit {
   constructor(private chronometerService: CountdownService) {
   }
   ngOnInit() {
-    this.chronometerService.initializeService(this.time);
     this.start();
   }
   start() {
-    this.chronometerService.restart(null, false);
+    this.chronometerService.initializeService(this.time);
+    this.chronometerService.restart();
     this.chronometer = this.chronometerService.getChronometer();
   }
 

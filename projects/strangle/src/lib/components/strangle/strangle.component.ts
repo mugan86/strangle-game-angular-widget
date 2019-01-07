@@ -1,4 +1,3 @@
-import { Letter } from './../../interfaces/letter.interface';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StrangleService } from '../../services/strangle.service';
 import { ChronometerService } from '../../services/chronometer.service';
@@ -10,20 +9,21 @@ import { CountdownService } from '../../services/countdown.service';
   styleUrls: ['./strangle.component.css']
 })
 export class StrangleComponent implements OnInit, OnDestroy {
-  wordToFind: string;
   momentWord: string;
-  inputLetters: string[] = [];
-  letters: Letter[] = [];
   finish = false;
+  @Input()
+  secretWord: string;
   @Input()
   attemps: number;
   @Input()
   playTime: number;
   constructor(private gameService: StrangleService, private chronometerService: ChronometerService,
     private countdownService: CountdownService) { }
-
   ngOnInit() {
+    this.init();
+  }
 
+  init() {
     // Listen to changes in attemps
     this.gameService.stringVar$.subscribe(data => {
       this.gameService.setAttemps(+data);
@@ -31,78 +31,57 @@ export class StrangleComponent implements OnInit, OnDestroy {
     });
 
     this.countdownService.currentTime$.subscribe(data => {
-      console.log('In strangle countdown!!!', data);
       let attemps = this.gameService.getAttemps();
-      if (data === 'FINISH' && attemps > 2) {
+      console.log(data, 'ddddddd - 35 strangle component');
+      if (data === 'FINISH' && attemps > 0) {
         attemps--;
         this.gameService.updateStringSubject(String(attemps));
         this.countdownService.stop();
-        this.countdownService.restart(null, true);
+        this.countdownService.restart();
+      } else {
+        console.log(data, 'ddddddd - 41 strangle component');
       }
     });
 
-    this.chronometerService.initializeService(1000);
-    this.countdownService.initializeService(this.playTime);
     this.gameService.setAttemps(this.attemps);
 
-    this.letters = this.gameService.createStartGameWord('anartz mugika ledo');
-    this.getHideWord();
-  }
-  findAppearances(inputChar: string) {
-    this.inputLetters.push(inputChar);
-    let attemps = this.gameService.getAttemps();
-    let ok = false;
-    this.letters.map( (data: Letter) => {
-      if (data.secret === '_' && data.visible === inputChar) {
-        console.log('OK!');
-        data.secret = inputChar;
-        ok = !ok;
-      }
-      console.log(data);
-    });
-    if ( !ok ) {
-      attemps--;
-      this.gameService.updateStringSubject(String(attemps));
-    }
+    this.gameService.createStartGameWord(this.secretWord);
+    this.gameService.getHideWord();
   }
 
-  getHideWord() {
-    this.momentWord = '';
-    this.letters.map((letter: Letter) => {
-      this.momentWord = this.momentWord + (letter.secret) + ' ';
-      console.log(letter.secret);
-    });
-    console.log(this.momentWord);
+  /**
+   * Check in this moment word secret appearance
+   */
+  getMomentWord() {
+    return this.gameService.momentWord;
   }
 
-  finishGame(): boolean {
-    const valuesCheck = this.letters.filter((letter: Letter) => letter.secret === '_');
-    console.log(valuesCheck);
-    return (valuesCheck.length === 0) ? true : false;
-  }
-
+  /**
+   * Key Input action and check if input value is find in secretWord
+   * @param key Input key letter to check in game secret world
+   */
   keyInput(key: string) {
     this.countdownService.stop();
-    // this.chronometerService.setChronometer('00:00:00');
-    console.log(key.toLowerCase());
-    this.findAppearances(key.toLowerCase());
-    this.getHideWord();
-    console.log(this.finishGame());
-    if (this.finishGame() || this.attemps === 0) {
+    this.gameService.findAppearances(key.toLowerCase());
+    this.gameService.getHideWord();
+    // console.log(this.finishGame());
+    if (this.gameService.finishGame() || this.gameService.attemps === 0) {
       this.finish = true;
-      if (this.attemps === 0) {
+      if (this.gameService.attemps === 0) {
         // Save
-        console.log('Word to find', this.wordToFind);
+        console.log('Word to find', this.secretWord);
       } else {
         console.log('Congratulations!!');
       }
       this.countdownService.setChronometer();
+      this.chronometerService.stop();
     }
-    this.countdownService.restart(null, true);
+    this.countdownService.restart();
   }
 
   ngOnDestroy() {
     this.gameService.stringVar.unsubscribe();
+    this.countdownService.currentTime.unsubscribe();
   }
 
 }
