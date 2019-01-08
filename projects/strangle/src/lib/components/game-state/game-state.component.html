@@ -1,3 +1,18 @@
-<p id="game-state">
-  <img [src]="firstImage" width="250px" height="250px"/>
-</p>
+<div class="row">
+  <div class="col progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [attr.ariaValuenow]="progress"
+      [attr.ariaValuemin]="0"
+      [attr.ariaValuemax]="100" 
+      [style.width]="progress + '%'">
+    </div>
+    <div id="attemps-state" class="col-2">
+      Intentos: {{ attemps }}
+    </div>
+  </div>
+  </div>
+<div class="row">
+  <div class="col">
+      <img [src]="firstImage" width="100%" height="100%"/>
+  </div>
+</div>
+

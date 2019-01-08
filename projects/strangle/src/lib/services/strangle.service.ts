@@ -32,8 +32,7 @@ export class StrangleService {
   // Update it by calling the method..
   // updateStringSubject('some new string value')
 
-  constructor() {
-  }
+  constructor() { }
   // ------ How to update the subject ---------
   // Create a method that allows you to update the subject being watched by observable
   public updateStringSubject(newStringVar: string) {

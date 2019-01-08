@@ -9,7 +9,7 @@ export class CountDownTimerComponent implements OnInit {
 
   chronometer = '00:00:15';
   @Input() time: number;
-  constructor(private chronometerService: CountdownService) {
+  constructor(public chronometerService: CountdownService) {
   }
   ngOnInit() {
     this.start();
