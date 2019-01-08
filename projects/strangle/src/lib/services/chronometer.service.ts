@@ -16,7 +16,6 @@ export class ChronometerService {
   start() {
     this.count$ = this.counter.start().subscribe(
       data => {
-        console.log(data);
         if ( data === 'FINISH') {
           this.count$.unsubscribe();
         }

@@ -1,3 +1,4 @@
+import { SecretWord } from './../../interfaces/secret-word.interface';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { StrangleService } from '../../services/strangle.service';
 import { ChronometerService } from '../../services/chronometer.service';
@@ -12,7 +13,7 @@ export class StrangleComponent implements OnInit, OnDestroy {
   momentWord: string;
   finish = false;
   @Input()
-  secretWord: string;
+  secretWord: SecretWord;
   @Input()
   attemps: number;
   @Input()
@@ -35,7 +36,6 @@ export class StrangleComponent implements OnInit, OnDestroy {
         this.gameService.updateStringSubject(String(attemps));
         this.finish = this.gameService.finishGame();
         if (!this.finish) {
-          this.countdownService.resetInterval(4);
           console.log('chrono', this.countdownService.getChronometer());
         }
         this.gameSituation();
@@ -52,7 +52,7 @@ export class StrangleComponent implements OnInit, OnDestroy {
 
     this.gameService.setAttemps(this.attemps);
 
-    this.gameService.createStartGameWord(this.secretWord);
+    this.gameService.createStartGameWord(this.secretWord.secret);
     this.gameService.getHideWord();
   }
 

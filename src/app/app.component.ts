@@ -1,18 +1,23 @@
+import { SecretWord } from './../../projects/strangle/src/lib/interfaces/secret-word.interface';
 import { GameConfig } from './interfaces/game-config.interface';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { SecretWordApiService } from 'projects/strangle/src/lib/services/secret-word-api.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'strangleDemoApp';
   gameConfig: GameConfig;
-  constructor() {
+  secretWord: SecretWord;
+  constructor(private secretWordApi: SecretWordApiService) {  }
+  ngOnInit() {
+    this.secretWord = this.secretWordApi.getWord();
     this.gameConfig = {
       attemps : 6,
-      playTime : 4
+      playTime : 15
     };
   }
 }

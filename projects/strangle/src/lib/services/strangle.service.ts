@@ -48,7 +48,6 @@ export class StrangleService {
     this.letters = [];
     for (let i = 0; i < wordToFind.length; i++) {
       const character = wordToFind[i].toLowerCase();
-      console.log(character);
       const letter: Letter = { visible: '', secret: ''};
       if (character === ' ') {
         letter.secret = '.....';
@@ -62,7 +61,6 @@ export class StrangleService {
 
   setAttemps(attemps: number) {
     this.attemps = attemps;
-    console.log('set attemps', this.getAttemps());
   }
 
   setPlayTime(playTime: number) {
@@ -84,7 +82,7 @@ export class StrangleService {
       if (data.secret === '_' && data.visible === inputChar) {
         console.log('OK!');
         data.secret = inputChar;
-        ok = !ok;
+        ok = true;
       }
       // console.log(data);
     });
