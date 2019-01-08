@@ -31,9 +31,7 @@
     font-weight: bold;
 }
 #attemps-state {
-    position: relative;
-    top: 0;
-    right: 10;
+    font-size: 20px;
 }
 
 /** KEYBOARD **/
