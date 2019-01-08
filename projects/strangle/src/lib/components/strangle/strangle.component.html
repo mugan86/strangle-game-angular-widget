@@ -1,21 +1,22 @@
-<p>
-  <strangle-count-down-timer [time]="playTime" (selectKey)="start()"></strangle-count-down-timer>
-  <strangle-chronometer [time]="-1"></strangle-chronometer>
-</p>
-<strangle-game-state></strangle-game-state>
-<p>
-  Attemps: {{ attemps }}
-</p>
-<p>
-  {{ secretWord.topic | uppercase }}
-</p>
-<p>
-  {{ getMomentWord() }}
-</p>
-<strangle-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></strangle-keyboard>
-<span *ngIf="secretWord.source && finish">More information <a [href]="secretWord.source">{{ secretWord.source }}</a></span>
-<h1 *ngIf="finish">
-  The game is finished. 
-  <span *ngIf="attemps == 0">You lost. Secret word is "{{ secretWord.secret }}"</span>
-  <span *ngIf="attemps > 0">You Win!!. Secret word is "{{ secretWord.secret }}"</span>
-</h1>
+<div id="outer" style="width:100%">
+  <div id="inner" class="main" width="50%">
+    <div id ="status-bar">
+      <strangle-count-down-timer [time]="playTime" (selectKey)="start()"></strangle-count-down-timer>
+      <strangle-chronometer [time]="-1"></strangle-chronometer>
+    </div>
+    <h1 *ngIf="finish">
+      The game is finished.
+      <span *ngIf="attemps == 0">You lost. Secret word is "{{ secretWord.secret }}"</span>
+      <span *ngIf="attemps > 0">You Win!!. Secret word is "{{ secretWord.secret }}"</span>
+    </h1>
+    <strangle-game-state></strangle-game-state>
+    <p id="attemps-secret">
+      <span id="secret">Secret Word Topic: {{ secretWord.topic | uppercase }}</span> <span id="attemps">Attemps: {{ attemps }}</span> 
+    </p>
+    <p class="center-text word">
+      {{ getMomentWord() }}
+    </p>
+    <strangle-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></strangle-keyboard>
+    <span *ngIf="secretWord.source && finish">More information <a [href]="secretWord.source">{{ secretWord.source }}</a></span>
+  </div>
+</div>

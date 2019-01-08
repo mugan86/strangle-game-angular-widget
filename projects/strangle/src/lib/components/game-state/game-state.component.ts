@@ -4,8 +4,7 @@ import { StrangleService } from '../../services/strangle.service';
 
 @Component({
   selector: 'strangle-game-state',
-  templateUrl: './game-state.component.html',
-  styleUrls: ['./game-state.component.css']
+  templateUrl: './game-state.component.html'
 })
 export class GameStateComponent implements OnInit {
   firstImage: string;

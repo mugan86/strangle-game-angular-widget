@@ -1,1 +1,80 @@
 /* You can add global styles to this file, and also import other style files */
+
+/** GAME LAYOUT **/
+#inner, #game-state {
+    width: 38%;
+    margin: 0 auto;
+    padding: 10px;
+    background: #666
+}
+/** KEYBOARD **/
+.keyboardRow { text-align:center }
+.key, .keyout {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #252C25;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    margin-bottom: 12px;
+    margin-left: 1px;
+    width: 40px;
+    padding: 5px;
+  }
+  .keyout {
+    background-color: rgb(127, 136, 127);
+    cursor: not-allowed;
+  }
+  
+  .key:hover {background-color: #053706}
+  
+  .key:active {
+    background-color: #053706;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+  }
+
+/** Status bar **/
+#status-bar, #attemps-secret {
+    background: #333;
+    padding: 8px 15px 8px 15px;
+    border-radius: 5px;
+}
+#attemps-secret {
+    font-size: 20px;
+}
+strangle-chronometer, #attemps {
+    float: right;
+}
+
+strangle-chronometer, strangle-count-down-timer {
+    font-size: 25px;
+}
+
+.center-text {
+    text-align: center
+}
+.word {
+    padding: 13px;
+    font-size: 20px;
+}
+/** GAME ELEMENTS **/
+#game-state{
+    text-align: center
+}
+
+#status-bar, #attemps-secret, h1, .word {
+    color: white;
+}
+
+.main {
+    border: 2px solid #3b3333;
+    box-shadow: 5px 5px rgb(145, 132, 132);
+    border-radius: 5px;
+}

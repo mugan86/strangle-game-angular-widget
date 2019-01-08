@@ -4,17 +4,27 @@ import { createKeyBoardKeys } from './keyboard.constants';
 
 @Component({
   selector: 'strangle-keyboard',
-  templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.css']
+  templateUrl: './keyboard.component.html'
 })
 export class KeyboardComponent implements OnInit {
+  /**
+   * Keyboard keys
+   */
   keys: Key[][] = [];
+  /**
+   * Send select key value to father
+   */
   @Output()
   selectKey: EventEmitter<String> = new EventEmitter<String>();
+  /**
+   * Specific if secret word contain number to generate keyboard with numbers
+   */
   @Input()
   withNumber: boolean;
-  constructor() { }
 
+  /**
+   * Initialize keyboard with configure keys
+   */
   ngOnInit() {
     this.keys = createKeyBoardKeys(this.withNumber);
   }

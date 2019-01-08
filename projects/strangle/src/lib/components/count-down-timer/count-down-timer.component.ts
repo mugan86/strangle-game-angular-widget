@@ -3,8 +3,7 @@ import { CountdownService } from '../../services/countdown.service';
 
 @Component({
   selector: 'strangle-count-down-timer',
-  templateUrl: './count-down-timer.component.html',
-  styleUrls: ['./count-down-timer.component.css']
+  templateUrl: './count-down-timer.component.html'
 })
 export class CountDownTimerComponent implements OnInit {
 

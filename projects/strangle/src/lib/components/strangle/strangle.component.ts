@@ -6,8 +6,7 @@ import { CountdownService } from '../../services/countdown.service';
 
 @Component({
   selector: 'strangle-root',
-  templateUrl: './strangle.component.html',
-  styleUrls: ['./strangle.component.css']
+  templateUrl: './strangle.component.html'
 })
 export class StrangleComponent implements OnInit, OnDestroy {
   momentWord: string;
