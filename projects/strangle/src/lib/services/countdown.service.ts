@@ -1,4 +1,4 @@
-import { Subscription, Subject } from 'rxjs';
+import { Subscription, ReplaySubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { CountDown } from 'mugan86-chronometer';
 
@@ -6,11 +6,11 @@ import { CountDown } from 'mugan86-chronometer';
   providedIn: 'root'
 })
 export class CountdownService {
-
   chronometer: string;
   counter: CountDown;
+  private count$ = new Subscription();
   // Para compartir información
-  public currentTime = new Subject<string>();
+  public currentTime = new ReplaySubject(1);
   public currentTime$ = this.currentTime.asObservable();
 
   public updateTime(data: string) {
@@ -18,14 +18,8 @@ export class CountdownService {
     console.log(data);
     if (data === 'FINISH') {
       data = '00:00:00';
-      console.log('Inicializar!!!');
-      this.restart();
     }
     this.chronometer = data;
-    /*if (newStringVar === '0') {
-      this.currentTime.unsubscribe();
-      console.log('unsuscribe');
-    }*/
   }
 
   initializeService(timeLimit: number = 3600) {
@@ -34,17 +28,25 @@ export class CountdownService {
   }
   restart() {
     // With clock format
-    this.counter.start().subscribe(
+    this.count$ = this.counter.start().subscribe(
       data => {
         this.updateTime(data);
-        /*if (data === 'FINISH') {
+        if (data === 'FINISH') {
           this.count$.unsubscribe();
-        }*/
+          this.restart();
+        }
       }
     );
   }
   stop() {
     this.currentTime.unsubscribe();
+    this.count$.unsubscribe();
+  }
+
+  resetInterval(time: number) {
+    this.count$.unsubscribe();
+    this.initializeService(time);
+    this.restart(); // start the interval again
   }
 
   getChronometer() {

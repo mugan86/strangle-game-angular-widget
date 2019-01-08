@@ -20,15 +20,4 @@ export class CountDownTimerComponent implements OnInit {
     this.chronometerService.restart();
     this.chronometer = this.chronometerService.getChronometer();
   }
-
-  /*restart($event, finish) {
-    start() {
-      // With clock format
-      if (this.time === -1 ) {
-        this.time = 3600;
-      }
-      this.chronometerService.start();
-      this.chronometer = this.chronometerService.getChronometer();
-    }
-  }*/
 }

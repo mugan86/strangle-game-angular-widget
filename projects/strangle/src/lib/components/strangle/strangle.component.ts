@@ -21,6 +21,26 @@ export class StrangleComponent implements OnInit, OnDestroy {
     private countdownService: CountdownService) { }
   ngOnInit() {
     this.init();
+    this.attempControlTime();
+  }
+
+  attempControlTime() {
+    this.countdownService.currentTime$.subscribe(data => {
+      let attemps = this.gameService.getAttemps();
+      if (attemps === 0) {
+        this.countdownService.stop();
+      }
+      if (data === 'FINISH' && attemps > 0) {
+        attemps--;
+        this.gameService.updateStringSubject(String(attemps));
+        this.finish = this.gameService.finishGame();
+        if (!this.finish) {
+          this.countdownService.resetInterval(4);
+          console.log('chrono', this.countdownService.getChronometer());
+        }
+        this.gameSituation();
+      }
+    });
   }
 
   init() {
@@ -28,19 +48,6 @@ export class StrangleComponent implements OnInit, OnDestroy {
     this.gameService.stringVar$.subscribe(data => {
       this.gameService.setAttemps(+data);
       this.attemps = this.gameService.getAttemps();
-    });
-
-    this.countdownService.currentTime$.subscribe(data => {
-      let attemps = this.gameService.getAttemps();
-      console.log(data, 'ddddddd - 35 strangle component');
-      if (data === 'FINISH' && attemps > 0) {
-        attemps--;
-        this.gameService.updateStringSubject(String(attemps));
-        this.countdownService.stop();
-        this.countdownService.restart();
-      } else {
-        console.log(data, 'ddddddd - 41 strangle component');
-      }
     });
 
     this.gameService.setAttemps(this.attemps);
@@ -61,10 +68,15 @@ export class StrangleComponent implements OnInit, OnDestroy {
    * @param key Input key letter to check in game secret world
    */
   keyInput(key: string) {
-    this.countdownService.stop();
     this.gameService.findAppearances(key.toLowerCase());
     this.gameService.getHideWord();
-    // console.log(this.finishGame());
+    this.gameSituation();
+  }
+
+  /**
+   * Check game situation to evaluate if game finish or no
+   */
+  gameSituation() {
     if (this.gameService.finishGame() || this.gameService.attemps === 0) {
       this.finish = true;
       if (this.gameService.attemps === 0) {
@@ -75,8 +87,10 @@ export class StrangleComponent implements OnInit, OnDestroy {
       }
       this.countdownService.setChronometer();
       this.chronometerService.stop();
+      this.countdownService.stop();
+    } else {
+      this.countdownService.resetInterval(this.playTime);
     }
-    this.countdownService.restart();
   }
 
   ngOnDestroy() {
