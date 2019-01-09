@@ -45,13 +45,19 @@ export class StrangleService {
 
   createStartGameWord(wordToFind: string = 'ahorcado') {
     this.letters = [];
-    for (let i = 0; i < wordToFind.length; i++) {
+    const wordToFindLength = wordToFind.length;
+    for (let i = 0; i < wordToFindLength; i++) {
       const character = wordToFind[i].toLowerCase();
-      const letter: Letter = { visible: '', secret: ''};
+      const letter: Letter = { visible: '', secret: '', intro: false };
       if (character === ' ') {
         letter.secret = '.....';
       } else {
         letter.secret = '_';
+      }
+      if (i % 14 === 0 && i > 0) {
+        console.log(wordToFindLength);
+        console.log(i + 1 > wordToFindLength - 1);
+        letter.intro = true;
       }
       letter.visible = character;
       this.letters.push(letter);
@@ -88,16 +94,19 @@ export class StrangleService {
     if ( !ok ) {
       attemps--;
       this.updateStringSubject(String(attemps));
+    } else {
+      // Send notification to change hide word
     }
   }
 
-  getHideWord() {
+  getHideWord(): Letter[] {
     this.momentWord = '';
     this.letters.map((letter: Letter) => {
       this.momentWord = this.momentWord + (letter.secret) + ' ';
       // console.log(letter.secret);
     });
     // console.log(this.momentWord);
+    return this.letters;
   }
 
   /**

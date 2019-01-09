@@ -1,13 +1,10 @@
-<div class="container-fluid">
+<div class="container-fluid" *ngIf="loading">
   <div id="inner" class="main">
       <div id="status-bar" class="row">
-        <div class="col">
+        <div class="col-6">
           <strangle-count-down-timer [time]="playTime"></strangle-count-down-timer>
         </div>
         <div class="col-6">
-
-        </div>
-        <div class="col">
           <strangle-chronometer [time]="-1"></strangle-chronometer>
         </div>
       </div>
@@ -22,13 +19,16 @@
       
       <div class="row" id="attemps-secret">
         <div id="secret" class="col-9">
-            Secret Word Topic: {{ secretWord.topic | uppercase }}
+          {{ secretWord.topic | uppercase }}
         </div>
       </div>
       <p class="center-text word">
         {{ getMomentWord() }}
       </p>
+      <p>
+        <strangle-hide-word></strangle-hide-word>
+      </p>
       <strangle-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></strangle-keyboard>
-      <a *ngIf="secretWord.source && finish" [href]="secretWord.source" class="btn btn-info">More information</a>
+      <a *ngIf="secretWord.source && finish" target="_blank" [href]="secretWord.source" class="btn btn-warning info-source">More information</a>
     </div>
 </div>

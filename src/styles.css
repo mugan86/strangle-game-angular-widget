@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
+@import 'https://use.fontawesome.com/releases/v5.6.3/css/all.css';
 
 /** GAME LAYOUT **/
 #inner, #game-state {
@@ -129,4 +130,15 @@ strangle-game-state img {
     width: 50%;
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.info-source {
+	position: relative;
+	left: 40%;
+	color: white;
+	font-weight: bold;
+}
+
+strangle-hide-word .btn.btn-light {
+    margin-right: 4px;
 }

@@ -21,6 +21,11 @@ export class SecretWordApiService {
       topic: 'UEFA Champions League Champion 2017/2018',
       secret: 'Real Madrid FC',
       source: 'https://en.m.wikipedia.org/wiki/2017%E2%80%9318_UEFA_Champions_League'
+    },
+    {
+      topic: 'UEFA Champions League Champion 2017/2018',
+      secret: 'Real Madrid Fut Club Ganador De Champions',
+      source: 'https://en.m.wikipedia.org/wiki/2017%E2%80%9318_UEFA_Champions_League'
     }
   ];
   getWord() {

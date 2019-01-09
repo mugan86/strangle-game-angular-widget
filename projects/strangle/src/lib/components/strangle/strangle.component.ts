@@ -11,6 +11,7 @@ import { CountdownService } from '../../services/countdown.service';
 export class StrangleComponent implements OnInit, OnDestroy {
   momentWord: string;
   finish = false;
+  loading = false;
   @Input()
   secretWord: SecretWord;
   @Input()
@@ -53,6 +54,7 @@ export class StrangleComponent implements OnInit, OnDestroy {
 
     this.gameService.createStartGameWord(this.secretWord.secret);
     this.gameService.getHideWord();
+    this.loading = true;
   }
 
   /**

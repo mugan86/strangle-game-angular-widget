@@ -1,3 +1,4 @@
+import { HideWordComponent } from './components/hide-word/hide-word.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CountDownTimerComponent } from './components/count-down-timer/count-down-timer.component';
@@ -10,7 +11,8 @@ const COMPONENTS = [
   KeyboardComponent,
   ChronometerComponent,
   CountDownTimerComponent,
-  GameStateComponent
+  GameStateComponent,
+  HideWordComponent
 ];
 @NgModule({
   declarations: COMPONENTS,
