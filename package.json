@@ -10,7 +10,8 @@
     "e2e": "ng e2e",
     "start:dev": "webpack-dev-server",
     "prod": "ng build --prod --base-href='./' && npm run strangle.docs.publish",
-    "strangle.docs.publish": "git status && git add docs/ && git commit -m \"Update demo\" && git push origin master"
+    "strangle.docs.publish": "git status && git add docs/ && git commit -m \"Update demo\" && git push origin master",
+    "build.strangle.lib": "ng build strangle && cp -R ./projects/strangle/src/lib/assets ./dist/strangle/lib"
   },
   "private": true,
   "dependencies": {

@@ -29,7 +29,6 @@
         {{ getMomentWord() }}
       </p>
       <strangle-keyboard *ngIf="!finish" (selectKey)="keyInput($event)"></strangle-keyboard>
-      <span *ngIf="secretWord.source && finish">More information <a [href]="secretWord.source">{{ secretWord.source }}</a></span>
+      <a *ngIf="secretWord.source && finish" [href]="secretWord.source" class="btn btn-info">More information</a>
     </div>
-
 </div>

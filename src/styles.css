@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
+
 /** GAME LAYOUT **/
 #inner, #game-state {
     margin: 0 auto;
@@ -115,7 +116,9 @@ strangle-chronometer, strangle-count-down-timer {
 
 strangle-game-state .row {
     background: white;
-    padding-bottom: 20px;
+    padding-bottom: 25px;
+    border-radius: 4px;
+    margin-bottom: -15px !important;
 }
 strangle-game-state img {
 	max-width: 250px;

@@ -11,6 +11,29 @@
 #inner .row {
     margin: 0px;
 }
+
+/** PROGRESS BAR **/
+
+.progress {
+	display: -ms-flexbox;
+	display: flex;
+	/* height: 1rem; */
+	overflow: hidden;
+	font-size: .75rem;
+	background-color:white;
+	border-radius: .25rem;
+	padding: 8px;
+    margin-top: 15px;
+    height: auto;
+}
+.progress-bar {
+    border-radius: 3px;
+    font-weight: bold;
+}
+#attemps-state {
+    font-size: 20px;
+}
+
 /** KEYBOARD **/
 .keyboardRow { text-align:center }
 .key, .keyout {
@@ -52,6 +75,7 @@
 }
 #attemps-secret {
     font-size: 20px;
+    margin-top: 30px !important;
 }
 strangle-chronometer, #attemps {
     float: right;
@@ -89,6 +113,10 @@ strangle-chronometer, strangle-count-down-timer {
 
 /** GAME STATE **/
 
+strangle-game-state .row {
+    background: white;
+    padding-bottom: 20px;
+}
 strangle-game-state img {
 	max-width: 250px;
 	height: 100%;

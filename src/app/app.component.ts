@@ -1,7 +1,6 @@
 import { SecretWord } from './../../projects/strangle/src/lib/interfaces/secret-word.interface';
-import { GameConfig } from './interfaces/game-config.interface';
 import { Component, OnInit } from '@angular/core';
-import { SecretWordApiService } from 'projects/strangle/src/lib/services/secret-word-api.service';
+import { SecretWordApiService, GameConfig } from 'strangle';
 
 @Component({
   selector: 'app-root',
