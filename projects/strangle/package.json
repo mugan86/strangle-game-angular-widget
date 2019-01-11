@@ -6,6 +6,7 @@
     "@angular/core": "^7.0.0"
   },
   "dependencies": {
-    "mugan86-chronometer": "^1.0.4"
+    "mugan86-chronometer": "^1.0.4",
+    "random-int": "^1.0.0"
   }
 }
