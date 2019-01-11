@@ -11,7 +11,7 @@ export class StrangleService {
   letters: Letter[] = [];
   attemps = 6;
   playTime: number;
-  url = 'https://bitbucket.org/amugika/ahorkadoa/raw/2b3890efce59f021619ff8bc3465ca79f54c6cbe/res/drawable/';
+  url = 'https://raw.githubusercontent.com/mugan86/strangle-game-angular-widget/master/projects/strangle/src/lib/assets/img/';
   images: string[] = [
     'a7.png',
     'a6.png',

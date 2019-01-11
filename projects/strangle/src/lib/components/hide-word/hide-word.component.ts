@@ -1,6 +1,6 @@
-import { Letter } from './../../../../../../dist/strangle/lib/interfaces/letter.interface.d';
 import { StrangleService } from './../../services/strangle.service';
 import { Component, OnInit } from '@angular/core';
+import { Letter } from '../../interfaces/letter.interface';
 
 @Component({
   selector: 'strangle-hide-word',
