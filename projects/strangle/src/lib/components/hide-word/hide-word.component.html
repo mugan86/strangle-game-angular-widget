@@ -1,7 +1,7 @@
 <span *ngFor="let button of letters; let i = index">
   <span *ngIf="button.secret != '.....'" class="btn btn-light">{{ button.secret }}</span>
   <span *ngIf="button.secret == '.....'">&nbsp;&nbsp;&nbsp;</span>
-  <span *ngIf="button.intro">()</span>
+  <span *ngIf="button.intro" class="btn btn-light"><i class="fas fa-angle-double-down"></i></span>
   <br *ngIf="button.intro" />
 </span>
 
