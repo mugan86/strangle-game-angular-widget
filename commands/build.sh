@@ -1,0 +1,1 @@
+ng build strangle && cp -R ./projects/strangle/src/lib/assets ./dist/strangle/lib

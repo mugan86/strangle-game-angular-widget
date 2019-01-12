@@ -1,0 +1,1 @@
+git status && git add docs/ && git commit -m "Update demo" && git push origin master
